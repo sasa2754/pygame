@@ -1,0 +1,51 @@
+import pygame
+from pygame.locals import *
+from sys import exit
+import random
+import time
+
+pygame.init()
+
+largura = 640
+altura = 480
+meioLargura = largura/2
+meioAltura = altura/2
+r = random.randint(0,255)
+g = random.randint(0,255)
+b = random.randint(0,255)
+xBolinha = meioLargura
+yBolinha = meioAltura
+velocidadex = 1
+velocidadey = 1
+relogio = pygame.time.Clock()
+tela = pygame.display.set_mode((largura, altura))
+pygame.display.set_caption("Bolinha")
+frame = 150
+
+while True:
+    relogio.tick(frame)
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            exit()
+
+    tela.fill((0,0,0))
+    bolinha = pygame.draw.circle(tela, (r,g,b),(int(xBolinha), int(yBolinha)), 40)
+
+    xBolinha += velocidadex
+    yBolinha += velocidadey
+
+    if xBolinha <= 0 or xBolinha >= largura:
+        velocidadex = -velocidadex
+        
+        r = random.randint(0,255)
+        g = random.randint(0,255)
+        b = random.randint(0,255)
+    if yBolinha <= 0 or yBolinha >= altura:
+        velocidadey = -velocidadey
+        
+        r = random.randint(0,255)
+        g = random.randint(0,255)
+        b = random.randint(0,255)
+    
+    pygame.display.update()
